@@ -53,6 +53,8 @@ class TinymceExtension extends Extension
      * This alias is also the mandatory prefix to use when using YAML.
      *
      * @return string The alias
+     *
+     * @psalm-return 'tinymce'
      */
     public function getAlias(): string
     {

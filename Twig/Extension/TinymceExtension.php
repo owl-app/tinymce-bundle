@@ -69,7 +69,9 @@ class TinymceExtension extends AbstractExtension
     /**
      * Returns a list of functions to add to the existing list.
      *
-     * @return array An array of functions
+     * @return TwigFunction[] An array of functions
+     *
+     * @psalm-return array{tinymce_init: TwigFunction}
      */
     public function getFunctions(): array
     {
@@ -203,6 +205,8 @@ class TinymceExtension extends AbstractExtension
      * Returns the name of the extension.
      *
      * @return string The extension name
+     *
+     * @psalm-return 'tinymce'
      */
     public function getName(): string
     {

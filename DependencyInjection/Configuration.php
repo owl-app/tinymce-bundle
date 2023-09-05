@@ -83,7 +83,10 @@ class Configuration implements ConfigurationInterface
     /**
      * Get default configuration of the each instance of editor
      *
-     * @return array
+     * @return (string|string[]|true)[][]
+     *
+     * @psalm-return array{advanced: array{theme: 'modern', plugins: list{'advlist autolink lists link image charmap print preview hr anchor pagebreak', 'searchreplace wordcount visualblocks visualchars code fullscreen', 'insertdatetime media nonbreaking save table contextmenu directionality', 'emoticons template paste textcolor'}, toolbar1: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify
+                                   | bullist numlist outdent indent | link image', toolbar2: 'print preview media | forecolor backcolor emoticons', image_advtab: true}, simple: array<never, never>}
      */
     private function getTinymceDefaults(): array
     {
