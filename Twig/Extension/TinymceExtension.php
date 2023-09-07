@@ -102,7 +102,6 @@ class TinymceExtension extends AbstractExtension
         $assetPackageName = $config['asset_package_name'] ?? null;
         unset($config['asset_package_name']);
 
-        /** @var $assets \Symfony\Component\Templating\Helper\CoreAssetsHelper */
         $assets = $this->packages;
 
         // Get path to tinymce script for the jQuery version of the editor

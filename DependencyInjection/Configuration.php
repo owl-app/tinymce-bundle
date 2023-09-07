@@ -2,6 +2,7 @@
 
 namespace Owl\Bundle\TinymceBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -21,8 +22,10 @@ class Configuration implements ConfigurationInterface
 
         $treeBuilder = new TreeBuilder('tinymce');
 
-        return $treeBuilder
-            ->getRootNode()
+        /** @var ArrayNodeDefinition $rootNode */
+        $rootNode = $treeBuilder->getRootNode();
+
+        return $rootNode
                 ->children()
                     // Include jQuery (true) library or not (false)
                     ->booleanNode('include_jquery')->defaultFalse()->end()
@@ -35,7 +38,7 @@ class Configuration implements ConfigurationInterface
                         ->prototype('scalar')->end()
                         ->beforeNormalization()
                             ->ifString()
-                            ->then(function ($value) { return [$value]; })
+                            ->then(function (string $value) { return [$value]; })
                         ->end()
                     ->end()
                     // base url for content
@@ -84,9 +87,6 @@ class Configuration implements ConfigurationInterface
      * Get default configuration of the each instance of editor
      *
      * @return (string|string[]|true)[][]
-     *
-     * @psalm-return array{advanced: array{theme: 'modern', plugins: list{'advlist autolink lists link image charmap print preview hr anchor pagebreak', 'searchreplace wordcount visualblocks visualchars code fullscreen', 'insertdatetime media nonbreaking save table contextmenu directionality', 'emoticons template paste textcolor'}, toolbar1: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify
-                                   | bullist numlist outdent indent | link image', toolbar2: 'print preview media | forecolor backcolor emoticons', image_advtab: true}, simple: array<never, never>}
      */
     private function getTinymceDefaults(): array
     {
