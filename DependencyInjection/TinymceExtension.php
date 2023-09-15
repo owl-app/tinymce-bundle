@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Owl\Bundle\TinymceBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
@@ -43,7 +45,7 @@ class TinymceExtension extends Extension
         $container->setParameter('tinymce.config', $config);
 
         // load dependency injection config
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('service.xml');
     }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Owl\Bundle\TinymceBundle\Helper;
 
 /**
@@ -24,8 +26,6 @@ class LocaleHelper
 
     /**
      * @param string $locale
-     *
-     * @return string
      */
     public static function getLanguage($locale): string
     {

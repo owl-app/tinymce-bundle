@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Owl\Bundle\TinymceBundle\Twig\Extension;
 
 use Owl\Bundle\TinymceBundle\Helper\LocaleHelper;
@@ -10,14 +12,10 @@ use Twig\TwigFunction;
 
 /**
  * TinymceExtension.
- *
- * @author naydav <web@naydav.com>
  */
 class TinymceExtension extends AbstractExtension
 {
-    /**
-     * @var ContainerInterface $container
-     */
+    /** @var ContainerInterface */
     protected $container;
 
     /**
@@ -29,15 +27,9 @@ class TinymceExtension extends AbstractExtension
      */
     protected $baseUrl;
 
-    /**
-     * @var Packages
-     */
+    /** @var Packages */
     private $packages;
 
-    /**
-     * @param ContainerInterface $container
-     * @param Packages           $packages
-     */
     public function __construct(ContainerInterface $container, Packages $packages)
     {
         $this->container = $container;
@@ -79,7 +71,7 @@ class TinymceExtension extends AbstractExtension
             'tinymce_init' => new TwigFunction(
                 'tinymce_init',
                 [$this, 'tinymceInit'],
-                ['is_safe' => ['html']]
+                ['is_safe' => ['html']],
             ),
         ];
     }
@@ -88,8 +80,6 @@ class TinymceExtension extends AbstractExtension
      * TinyMce initializations
      *
      * @param array $options
-     *
-     * @return string
      */
     public function tinymceInit($options = []): string
     {
@@ -107,8 +97,8 @@ class TinymceExtension extends AbstractExtension
         // Get path to tinymce script for the jQuery version of the editor
         if ($config['tinymce_jquery']) {
             $config['jquery_script_url'] = $assets->getUrl(
-                $this->baseUrl.'bundles/tinymce/vendor/tinymce/tinymce.jquery.min.js',
-                $assetPackageName
+                $this->baseUrl . 'bundles/tinymce/vendor/tinymce/tinymce.jquery.min.js',
+                $assetPackageName,
             );
         }
 
@@ -140,10 +130,10 @@ class TinymceExtension extends AbstractExtension
 
         $config['language'] = LocaleHelper::getLanguage($config['language']);
 
-        $langDirectory = __DIR__.'/../../Resources/public/vendor/tinymce/langs/';
+        $langDirectory = __DIR__ . '/../../Resources/public/vendor/tinymce/langs/';
 
         // A language code coming from the locale may not match an existing language file
-        if (!file_exists($langDirectory.$config['language'].'.js')) {
+        if (!file_exists($langDirectory . $config['language'] . '.js')) {
             unset($config['language']);
         }
 
@@ -185,7 +175,7 @@ class TinymceExtension extends AbstractExtension
                 'file_picker_callback:$1',
                 '"paste_preprocess":$1',
             ],
-            \json_encode($config)
+            \json_encode($config),
         );
 
         return $this->getService('twig')->render(
@@ -196,7 +186,7 @@ class TinymceExtension extends AbstractExtension
                 'tinymce_jquery' => $config['tinymce_jquery'],
                 'asset_package_name' => $assetPackageName,
                 'base_url' => $this->baseUrl,
-            ]
+            ],
         );
     }
 
@@ -214,10 +204,6 @@ class TinymceExtension extends AbstractExtension
 
     /**
      * Get url from config string
-     *
-     * @param string $inputUrl
-     *
-     * @return string
      */
     protected function getAssetsUrl(string $inputUrl): string
     {
@@ -226,7 +212,7 @@ class TinymceExtension extends AbstractExtension
         $url = preg_replace('/^asset\[(.+)\]$/i', '$1', $inputUrl);
 
         if ($inputUrl !== $url) {
-            return $assets->getUrl($this->baseUrl.$url);
+            return $assets->getUrl($this->baseUrl . $url);
         }
 
         return $inputUrl;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Owl\Bundle\TinymceBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
@@ -13,8 +15,6 @@ class Configuration implements ConfigurationInterface
 {
     /**
      * Generates the configuration tree.
-     *
-     * @return TreeBuilder
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {
